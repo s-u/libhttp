@@ -127,8 +127,10 @@ char static_assert_replacement[1];
 
 #ifdef __MACH__
 
+#ifndef CLOCK_MONOTONIC
 #define CLOCK_MONOTONIC (1)
 #define CLOCK_REALTIME (2)
+#endif
 
 #include <sys/time.h>
 #include <mach/clock.h>
