@@ -10,7 +10,7 @@ PROG = post
 SRC = post.c
 
 TOP = ../..
-CIVETWEB_LIB = libcivetweb.a
+LIBHTTP_LIB = libhttp.a
 
 CFLAGS = -I$(TOP)/include $(COPT)
 LIBS = -lpthread
@@ -23,14 +23,13 @@ endif
 
 all: $(PROG)
 
-$(PROG): $(CIVETWEB_LIB) $(SRC)
-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(SRC) $(CIVETWEB_LIB) $(LIBS)
+$(PROG): $(LIBHTTP_LIB) $(SRC)
+	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $(SRC) $(LIBHTTP_LIB) $(LIBS)
 
-$(CIVETWEB_LIB):
-	$(MAKE) -C $(TOP) clean lib
-	cp $(TOP)/$(CIVETWEB_LIB) .
+$(LIBHTTP_LIB):
+	$(MAKE) -C $(TOP) lib && cp -p $(TOP)/lib/$(LIBHTTP_LIB) .
 
 clean:
-	rm -f $(CIVETWEB_LIB) $(PROG)
+	rm -f $(PROG) $(LIBHTTP_LIB)
 
 .PHONY: all clean
